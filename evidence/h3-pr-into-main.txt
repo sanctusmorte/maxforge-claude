@@ -1,0 +1,25 @@
+# PR into main while origin/dev exists
+hook: hooks/guard-bash.py
+event: PreToolUse
+matcher: Bash
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "session_id": "demo-session",
+  "cwd": "~/demo-app",
+  "tool_input": {
+    "command": "gh pr create --base main --title x --body y"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "guard-bash: PR into 'main' while a dev branch exists \u2014 base must be dev (core rule 1)"}}
+--- deny/block text (decoded from stdout) ---
+guard-bash: PR into 'main' while a dev branch exists — base must be dev (core rule 1)
+--- stderr ---
+
+--- exit code ---
+0

@@ -1,0 +1,10 @@
+<!doctype html><meta charset="utf-8"><title>fixture</title>
+<body><main>
+<a href="page2.html" id="go">Go to page two</a>
+<button id="toggle" aria-pressed="false" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed')==='true'?'false':'true')">Toggle</button>
+<button id="open" onclick="document.getElementById('dlg').showModal()">Open dialog</button>
+<dialog id="dlg"><p>Hello</p></dialog>
+<button id="dead">Dead button</button>
+<button id="boom" onclick="throw new Error('boom')">Throwing button</button>
+<button id="del" onclick="document.body.remove()">Удалить всё</button>
+</main></body>

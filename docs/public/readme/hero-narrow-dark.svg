@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="490" viewBox="0 0 360 490" role="img" aria-label="Self-test fixture with six controls. tools/dead-clicks.mjs clicks each one and a verdict lands under it: Go to page two: NAVIGATED, Toggle: STATE_CHANGED, Open dialog: OVERLAY, Dead button: NO_EFFECT, Throwing button: ERROR, Удалить всё: SKIPPED. The two blocking verdicts turn amber. Then gh pr create is denied by guard-bash: design gate: a PASS scorecard exists but is not complete, 2 control(s) without effect or with an error: NO_EFFECT «Dead button», ERROR «Throwing button».">
+<title>Self-test fixture with six controls. tools/dead-clicks.mjs clicks each one and a verdict lands under it: Go to page two: NAVIGATED, Toggle: STATE_CHANGED, Open dialog: OVERLAY, Dead button: NO_EFFECT, Throwing button: ERROR, Удалить всё: SKIPPED. The two blocking verdicts turn amber. Then gh pr create is denied by guard-bash: design gate: a PASS scorecard exists but is not complete, 2 control(s) without effect or with an error: NO_EFFECT «Dead button», ERROR «Throwing button».</title>
+<style>
+@keyframes p0{0.00%{transform:scale(1)} 34.17%{transform:scale(1)} 34.83%{transform:scale(0.94)} 36.00%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r0{0.00%{opacity:0;transform:scale(0.3)} 34.17%{opacity:0;transform:scale(0.3)} 34.33%{opacity:0.9;transform:scale(0.3)} 37.92%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v0{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 35.42%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 37.50%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes t1{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 41.67%{opacity:0;transform:translateY(0px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 42.92%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes p1{0.00%{transform:scale(1)} 40.83%{transform:scale(1)} 41.50%{transform:scale(0.94)} 42.67%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r1{0.00%{opacity:0;transform:scale(0.3)} 40.83%{opacity:0;transform:scale(0.3)} 41.00%{opacity:0.9;transform:scale(0.3)} 44.58%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v1{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 42.08%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 44.17%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes p2{0.00%{transform:scale(1)} 47.50%{transform:scale(1)} 48.17%{transform:scale(0.94)} 49.33%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r2{0.00%{opacity:0;transform:scale(0.3)} 47.50%{opacity:0;transform:scale(0.3)} 47.67%{opacity:0.9;transform:scale(0.3)} 51.25%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v2{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 48.75%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 50.83%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes p3{0.00%{transform:scale(1)} 54.17%{transform:scale(1)} 54.83%{transform:scale(0.94)} 56.00%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r3{0.00%{opacity:0;transform:scale(0.3)} 54.17%{opacity:0;transform:scale(0.3)} 54.33%{opacity:0.9;transform:scale(0.3)} 57.92%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v3{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 55.42%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 57.50%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes p4{0.00%{transform:scale(1)} 60.83%{transform:scale(1)} 61.50%{transform:scale(0.94)} 62.67%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r4{0.00%{opacity:0;transform:scale(0.3)} 60.83%{opacity:0;transform:scale(0.3)} 61.00%{opacity:0.9;transform:scale(0.3)} 64.58%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v4{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 62.08%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 64.17%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes p5{0.00%{transform:scale(1)} 67.50%{transform:scale(1)} 68.17%{transform:scale(0.94)} 69.33%{transform:scale(1)} 100.00%{transform:scale(1)}}
+@keyframes r5{0.00%{opacity:0;transform:scale(0.3)} 67.50%{opacity:0;transform:scale(0.3)} 67.67%{opacity:0.9;transform:scale(0.3)} 71.25%{opacity:0;transform:scale(1.4)} 100.00%{opacity:0;transform:scale(1.4)}}
+@keyframes v5{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 68.75%{opacity:0;transform:translateY(-6px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 70.83%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes cur{0.00%{opacity:0;transform:translate(300px,244px)} 27.92%{opacity:0;transform:translate(300px,244px)} 29.17%{opacity:1;transform:translate(300px,244px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 33.33%{opacity:1;transform:translate(79.0px,79.0px)} 35.83%{opacity:1;transform:translate(79.0px,79.0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 40.00%{opacity:1;transform:translate(230.0px,79.0px)} 42.50%{opacity:1;transform:translate(230.0px,79.0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 46.67%{opacity:1;transform:translate(79.0px,151.0px)} 49.17%{opacity:1;transform:translate(79.0px,151.0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 53.33%{opacity:1;transform:translate(251.0px,151.0px)} 55.83%{opacity:1;transform:translate(251.0px,151.0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 60.00%{opacity:1;transform:translate(96.0px,223.0px)} 62.50%{opacity:1;transform:translate(96.0px,223.0px);animation-timing-function:cubic-bezier(0.77,0,0.175,1)} 66.67%{opacity:1;transform:translate(251.0px,223.0px)} 71.67%{opacity:1;transform:translate(251.0px,223.0px)} 74.17%{opacity:0;transform:translate(251.0px,223.0px)} 100.00%{opacity:0;transform:translate(251.0px,223.0px)}}
+@keyframes dc{0.00%{opacity:1} 25.00%{opacity:1} 27.92%{opacity:.6} 74.17%{opacity:.6} 75.83%{opacity:1} 100.00%{opacity:1}}
+@keyframes dd{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 77.50%{opacity:0;transform:translateY(-4px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 79.17%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d0{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 79.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 81.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d1{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 80.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 82.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d2{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 81.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 83.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d3{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 82.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 84.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d4{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 83.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 85.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d5{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 84.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 86.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+@keyframes d6{0.00%{opacity:1;transform:translateY(0)} 25.00%{opacity:1;transform:translateY(0)} 27.92%{opacity:0;transform:translateY(0)} 85.58%{opacity:0;transform:translateY(-3px);animation-timing-function:cubic-bezier(0.23,1,0.32,1)} 87.25%{opacity:1;transform:translateY(0)} 100.00%{opacity:1;transform:translateY(0)}}
+.p0{transform-box:fill-box;transform-origin:center;animation:p0 12s linear infinite}
+.r0{opacity:0;transform-box:fill-box;transform-origin:center;animation:r0 12s linear infinite}
+.v0{animation:v0 12s linear infinite}
+.t1{animation:t1 12s linear infinite}
+.p1{transform-box:fill-box;transform-origin:center;animation:p1 12s linear infinite}
+.r1{opacity:0;transform-box:fill-box;transform-origin:center;animation:r1 12s linear infinite}
+.v1{animation:v1 12s linear infinite}
+.p2{transform-box:fill-box;transform-origin:center;animation:p2 12s linear infinite}
+.r2{opacity:0;transform-box:fill-box;transform-origin:center;animation:r2 12s linear infinite}
+.v2{animation:v2 12s linear infinite}
+.p3{transform-box:fill-box;transform-origin:center;animation:p3 12s linear infinite}
+.r3{opacity:0;transform-box:fill-box;transform-origin:center;animation:r3 12s linear infinite}
+.v3{animation:v3 12s linear infinite}
+.p4{transform-box:fill-box;transform-origin:center;animation:p4 12s linear infinite}
+.r4{opacity:0;transform-box:fill-box;transform-origin:center;animation:r4 12s linear infinite}
+.v4{animation:v4 12s linear infinite}
+.p5{transform-box:fill-box;transform-origin:center;animation:p5 12s linear infinite}
+.r5{opacity:0;transform-box:fill-box;transform-origin:center;animation:r5 12s linear infinite}
+.v5{animation:v5 12s linear infinite}
+.cur{opacity:0;animation:cur 12s linear infinite}
+.dc{animation:dc 12s linear infinite}
+.dd{animation:dd 12s linear infinite}
+.d0{animation:d0 12s linear infinite}
+.d1{animation:d1 12s linear infinite}
+.d2{animation:d2 12s linear infinite}
+.d3{animation:d3 12s linear infinite}
+.d4{animation:d4 12s linear infinite}
+.d5{animation:d5 12s linear infinite}
+.d6{animation:d6 12s linear infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none!important}}
+</style>
+<rect x="0.75" y="0.75" width="358.5" height="488.5" rx="10" fill="#14213D" stroke="#2e3d61" stroke-width="1.5"/>
+<text x="16" y="30" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="15" font-weight="600" fill="#eef1f6" text-anchor="start">self-test fixture</text>
+<text x="344" y="30" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="400" fill="#aab4c9" text-anchor="end">tools/dead-clicks.mjs</text>
+<rect x="16" y="44" width="328" height="1" fill="#2e3d61"/>
+<g class="p0">
+<text text-decoration="underline" x="16" y="81" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="start">Go to page two</text>
+</g>
+<circle class="r0" cx="75" cy="75" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="16.75" y="98.75" width="96.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v0"><rect x="16.75" y="98.75" width="96.5" height="24.5" rx="5" fill="#26355a" stroke="#26355a" stroke-width="1.5"/><text x="24" y="116" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#eef1f6" text-anchor="start">NAVIGATED</text></g>
+<g class="p1">
+<rect x="188.75" y="58.75" width="74.5" height="32.5" rx="6" fill="#14213D" stroke="#7d8aa8" stroke-width="1.5"/>
+<g class="t1"><rect x="188.75" y="58.75" width="74.5" height="32.5" rx="6" fill="#2e3d61" stroke="#eef1f6" stroke-width="1.5"/></g>
+<text x="226" y="81" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="middle">Toggle</text>
+</g>
+<circle class="r1" cx="226" cy="75" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="188.75" y="98.75" width="132.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v1"><rect x="188.75" y="98.75" width="132.5" height="24.5" rx="5" fill="#26355a" stroke="#26355a" stroke-width="1.5"/><text x="196" y="116" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#eef1f6" text-anchor="start">STATE_CHANGED</text></g>
+<g class="p2">
+<rect x="16.75" y="130.75" width="116.5" height="32.5" rx="6" fill="#14213D" stroke="#7d8aa8" stroke-width="1.5"/>
+<text x="75" y="153" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="middle">Open dialog</text>
+</g>
+<circle class="r2" cx="75" cy="147" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="16.75" y="170.75" width="78.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v2"><rect x="16.75" y="170.75" width="78.5" height="24.5" rx="5" fill="#26355a" stroke="#26355a" stroke-width="1.5"/><text x="24" y="188" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#eef1f6" text-anchor="start">OVERLAY</text></g>
+<g class="p3">
+<rect x="188.75" y="130.75" width="116.5" height="32.5" rx="6" fill="#14213D" stroke="#7d8aa8" stroke-width="1.5"/>
+<text x="247" y="153" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="middle">Dead button</text>
+</g>
+<circle class="r3" cx="247" cy="147" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="188.75" y="170.75" width="96.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v3"><rect x="188.75" y="170.75" width="96.5" height="24.5" rx="5" fill="#FCA311" stroke="#FCA311" stroke-width="1.5"/><text x="196" y="188" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#14213D" text-anchor="start">NO_EFFECT</text></g>
+<g class="p4">
+<rect x="16.75" y="202.75" width="150.5" height="32.5" rx="6" fill="#14213D" stroke="#7d8aa8" stroke-width="1.5"/>
+<text x="92" y="225" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="middle">Throwing button</text>
+</g>
+<circle class="r4" cx="92" cy="219" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="16.75" y="242.75" width="60.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v4"><rect x="16.75" y="242.75" width="60.5" height="24.5" rx="5" fill="#FCA311" stroke="#FCA311" stroke-width="1.5"/><text x="24" y="260" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#14213D" text-anchor="start">ERROR</text></g>
+<g class="p5">
+<rect x="188.75" y="202.75" width="116.5" height="32.5" rx="6" fill="#14213D" stroke="#7d8aa8" stroke-width="1.5"/>
+<text x="247" y="225" font-family='ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif' font-size="16" font-weight="400" fill="#eef1f6" text-anchor="middle">Удалить всё</text>
+</g>
+<circle class="r5" cx="247" cy="219" r="22" fill="none" stroke="#aab4c9" stroke-width="2"/>
+<rect x="188.75" y="242.75" width="78.5" height="24.5" rx="5" fill="none" stroke="#4a5878" stroke-width="1.5" stroke-dasharray="4 4"/>
+<g class="v5"><rect x="188.75" y="242.75" width="78.5" height="24.5" rx="5" fill="#14213D" stroke="#aab4c9" stroke-width="1.5" stroke-dasharray="5 3"/><text x="196" y="260" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#aab4c9" text-anchor="start">SKIPPED</text></g>
+<path d="M1 284 H359 V479 Q359 489 349 489 H11 Q1 489 1 479 Z" fill="#0b1426"/>
+<g class="dc"><text x="16" y="314" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="400" fill="#eef1f6" text-anchor="start">$ gh pr create --base dev …</text></g>
+<g class="dd"><rect x="274" y="295" width="70" height="26" rx="5" fill="#FCA311"/><text x="309" y="313" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" font-weight="700" fill="#14213D" text-anchor="middle">denied</text></g>
+<g class="d0"><text x="16" y="344" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6">guard-bash: design gate: a PASS</text></g>
+<g class="d1"><text x="16" y="365" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6">scorecard exists but is not complete</text></g>
+<g class="d2"><text x="16" y="386" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6">— dashboard/scorecard.md:</text></g>
+<g class="d3"><text x="16" y="407" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6">dead-clicks: 2 control(s) without</text></g>
+<g class="d4"><text x="16" y="428" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6">effect or with an error:</text></g>
+<g class="d5"><text x="16" y="449" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6"><tspan fill="#FCA311" font-weight="700">NO_EFFECT «Dead button»</tspan>,</text></g>
+<g class="d6"><text x="16" y="470" font-family='ui-monospace,SFMono-Regular,Menlo,Consolas,monospace' font-size="15" fill="#eef1f6"><tspan fill="#FCA311" font-weight="700">ERROR «Throwing button»</tspan> …</text></g>
+<g class="cur"><path transform="scale(0.75)" d="M0 0 L0 26 L7 20 L12 31 L17 29 L12 18 L21 18 Z" fill="#eef1f6" stroke="#0b1426" stroke-width="2" stroke-linejoin="round"/></g>
+</svg>

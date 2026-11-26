@@ -1,0 +1,28 @@
+# edit a .py file before reading the Python rule
+hook: hooks/rules-gate.py
+event: PreToolUse
+matcher: Edit|Write|MultiEdit|NotebookEdit
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "session_id": "sess",
+  "transcript_path": "<repo>/.tmp/cap/w/sess.jsonl",
+  "cwd": "~/demo-app",
+  "tool_input": {
+    "file_path": "~/demo-app/app/service.py",
+    "old_string": "a",
+    "new_string": "b"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "rules-gate: service.py is covered by python.md which is not in your context (path-scoped rules do not auto-load outside the session's project dir) \u2014 `Read ~/.claude/rules/python.md` first, follow it, then retry this edit."}}
+--- deny/block text (decoded from stdout) ---
+rules-gate: service.py is covered by python.md which is not in your context (path-scoped rules do not auto-load outside the session's project dir) — `Read ~/.claude/rules/python.md` first, follow it, then retry this edit.
+--- stderr ---
+
+--- exit code ---
+0

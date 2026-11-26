@@ -1,0 +1,186 @@
+{
+  "include": [
+    "agents/*.md",
+    "hooks/*.py",
+    "skills/**",
+    "tools/**",
+    "rules/*.md",
+    "templates/**",
+    "output-styles/*.md"
+  ],
+  "exclude": [
+    "skills/synced/**",
+    "skills/.trash/**",
+    "skills/qa-verify/calibration/**",
+    "skills/setup/**",
+    "agents/Explore.md",
+    "agents/general-purpose.md",
+    "agents/card-researcher.md",
+    "tools/node_modules/**",
+    "tools/**/__pycache__/**",
+    "tools/portfolio.sh",
+    "tools/ci-status.sh",
+    "tools/spend-verify-*/**",
+    "hooks/__pycache__/**",
+    "hooks/maxforge-check.py",
+    "**/__pycache__/**",
+    "**/*.pyc",
+    "**/.DS_Store",
+    "tools/memory-index/**",
+    "tools/fixtures/**/.out/**",
+    "skills/qa-verify/anchors/**",
+    "tools/fixtures/ui-qa/real-report-good.html"
+  ],
+  "lessons_allowlist": [],
+  "owner_only_hooks": [
+    "main-sync.py"
+  ],
+  "owner_only_hooks_reasons": {
+    "main-sync.py": "keeps the owner's own project main checkouts on their base branch (owner-specific repo list)"
+  },
+  "excluded_tools_reasons": {
+    "memory-index": "indexes the owner's private memory store",
+    "portfolio.sh": "owner's project portfolio refresher",
+    "ci-status.sh": "owner's CI/forge status script",
+    "spend-verify-*": "owner's one-off spend audit data",
+    "skills/qa-verify/anchors/**": "screenshots of the owner's products and third-party sites (private/copyrighted); design-anchors.md ships as text only",
+    "tools/fixtures/ui-qa/real-report-good.html": "a real internal report page (private regression fixture); tools/test-uiqa.mjs skips that case when it is absent"
+  },
+  "scrub": [
+    {
+      "glob": "**",
+      "pattern": "/home/(?!user/)[A-Za-z0-9_-]+/",
+      "replace": "/home/user/"
+    },
+    {
+      "glob": "skills/qa-verify/design-anchors.md",
+      "pattern": "\\A(# [^\\n]*\\n)",
+      "replace": "\\1\n> **Anchor images are not shipped.** The owner's calibration screenshots (his products and third-party sites) are private, so the table below keeps only the scores and the reasons, and the `anchors/` and `calibration/` paths it mentions do not exist in this plugin. To use this method, build your own anchor set: screenshot 15-25 screens you have rated yourself on the 1-10 scale below (cover every score band, one image per row), keep them in `skills/qa-verify/anchors/` with your scores, replace the table rows with your own, and stitch a few into 2x2 sheets so agents can read them cheaply. Keep a held-out half unrated by the agents for checking drift.\n"
+    },
+    {
+      "glob": "skills/qa-verify/design-anchors.md",
+      "pattern": "(?s)Images: `anchors/owner/`.*?after any change to the table below\\)\\.",
+      "replace": "Images: your own anchor screenshots (not shipped, see the note at the top); agents read them as sheets (first screen + score)."
+    },
+    {
+      "glob": "skills/qa-verify/design-anchors.md",
+      "pattern": "`calibration/README\\.md` § Analysis 2026-09",
+      "replace": "in the owner's private calibration notes"
+    },
+    {
+      "glob": "skills/qa-verify/design-anchors.md",
+      "pattern": "`calibration/split-2026-09\\.json`",
+      "replace": "the private calibration split"
+    },
+    {
+      "glob": "agents/*.md",
+      "pattern": "the 5 anchor sheets `anchors/sheets/sheet-\\{1\\.\\.5\\}\\.png`",
+      "replace": "your anchor sheets (not shipped; see `design-anchors.md` for how to build them)"
+    },
+    {
+      "glob": "agents/*.md",
+      "pattern": "the anchor sheets \\(`anchors/sheets/sheet-\\{1\\.\\.5\\}\\.png`\\)",
+      "replace": "your anchor sheets (not shipped; see `design-anchors.md`)"
+    },
+    {
+      "glob": "agents/*.md",
+      "pattern": "`?(?:~/\\.claude/skills/qa-verify/)?calibration/README\\.md`?",
+      "replace": "the owner's private calibration notes (not shipped)"
+    },
+    {
+      "glob": "agents/*.md",
+      "pattern": "`calibration/judge-prompt-v7-pairwise\\.txt`",
+      "replace": "the private calibration prompt (not shipped)"
+    },
+    {
+      "glob": "agents/*.md",
+      "pattern": "`calibration/check\\.sh`",
+      "replace": "your own calibration check"
+    },
+    {
+      "glob": "skills/qa-verify/SKILL.md",
+      "pattern": "`calibration/check\\.sh`",
+      "replace": "your own calibration check"
+    },
+    {
+      "glob": "tools/judge-calibration.mjs",
+      "pattern": "~/\\.claude/skills/qa-verify/calibration/README\\.md",
+      "replace": "the owner's private calibration notes (not shipped)"
+    },
+    {
+      "glob": "skills/project-sync/SKILL.md",
+      "pattern": "^- L0: `~/\\.claude/tools/portfolio\\.sh[^\\n]*\\n",
+      "replace": ""
+    }
+  ],
+  "third_party_skills": {
+    "competitor-profiling": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "content-strategy": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "context-compression": {
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "license": "MIT"
+    },
+    "context-fundamentals": {
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "license": "MIT"
+    },
+    "context-optimization": {
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "license": "MIT"
+    },
+    "copywriting": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "council-review": {
+      "url": "https://github.com/ngmeyer/council-review",
+      "license": "MIT"
+    },
+    "cro": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "customer-research": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "emil-design-eng": {
+      "url": "https://github.com/emilkowalski/skill",
+      "license": "none (no LICENSE file)"
+    },
+    "harness-engineering": {
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "license": "MIT"
+    },
+    "marketing-psychology": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "multi-agent-patterns": {
+      "url": "https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering",
+      "license": "MIT"
+    },
+    "product-marketing": {
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "license": "MIT"
+    },
+    "redesign-skill": {
+      "url": "https://github.com/leonxlnx/taste-skill",
+      "license": "MIT"
+    },
+    "stop-slop": {
+      "url": "https://github.com/hardikpandya/stop-slop",
+      "license": "MIT"
+    },
+    "taste-skill": {
+      "url": "https://github.com/leonxlnx/taste-skill",
+      "license": "MIT"
+    }
+  }
+}

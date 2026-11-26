@@ -1,0 +1,25 @@
+# destructive database command
+hook: hooks/guard-bash.py
+event: PreToolUse
+matcher: Bash
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "session_id": "demo-session",
+  "cwd": "~/demo-app",
+  "tool_input": {
+    "command": "php artisan migrate:fresh --force"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "guard-bash: destructive DB command without a test-DB hint (testing/_test/sqlite) \u2014 forbidden on dev/prod data"}}
+--- deny/block text (decoded from stdout) ---
+guard-bash: destructive DB command without a test-DB hint (testing/_test/sqlite) — forbidden on dev/prod data
+--- stderr ---
+
+--- exit code ---
+0

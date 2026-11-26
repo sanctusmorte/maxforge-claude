@@ -1,0 +1,25 @@
+# PASS scorecard while the self-test fixture's controls do nothing or throw (NO_EFFECT, ERROR)
+hook: hooks/guard-bash.py
+event: PreToolUse
+matcher: Bash
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+note: same fixture as d1-d3 (branch feat touches src/Dashboard.vue; artifacts/ui-qa/dashboard/scorecard.md says Verdict: PASS; clean geometry/report.json); dead-clicks/report.json = evidence/ui/dead-clicks-fixture/report.json (6 controls: NO_EFFECT «Dead button», ERROR «Throwing button»); reproduce: bash evidence/capture-d4.sh
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "session_id": "demo-session",
+  "cwd": "~/ui-app",
+  "tool_input": {
+    "command": "gh pr create --base dev --title 'feat: dashboard' --body 'Adds the dashboard'"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "guard-bash: design gate: a PASS scorecard exists but is not complete \u2014 dashboard/scorecard.md: dead-clicks: 2 control(s) without effect or with an error: NO_EFFECT \u00abDead button\u00bb, ERROR \u00abThrowing button\u00bb \u2014 every State matrix row needs a screenshot or an 'n/a reason'; every control needs an effect in dead-clicks/report.json (allowlist only with a reason) or the scorecard says 'Interaction: n/a \u2014 <reason>'; geometry/report.json (tools/ui-geometry.mjs) with 0 errors or 'Geometry: n/a \u2014 <reason>' (templates/project/design-scorecard.md \u00a7 State matrix, \u00a7 Interaction, \u00a7 Geometry)"}}
+--- deny/block text (decoded from stdout) ---
+guard-bash: design gate: a PASS scorecard exists but is not complete — dashboard/scorecard.md: dead-clicks: 2 control(s) without effect or with an error: NO_EFFECT «Dead button», ERROR «Throwing button» — every State matrix row needs a screenshot or an 'n/a reason'; every control needs an effect in dead-clicks/report.json (allowlist only with a reason) or the scorecard says 'Interaction: n/a — <reason>'; geometry/report.json (tools/ui-geometry.mjs) with 0 errors or 'Geometry: n/a — <reason>' (templates/project/design-scorecard.md § State matrix, § Interaction, § Geometry)
+--- stderr ---
+
+--- exit code ---
+0

@@ -1,0 +1,25 @@
+# PASS scorecard while a control does nothing (NO_EFFECT)
+hook: hooks/guard-bash.py
+event: PreToolUse
+matcher: Bash
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+note: same fixture; fresh clean geometry/report.json added; dead-clicks/report.json lists control `Export` with verdict NO_EFFECT
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "session_id": "demo-session",
+  "cwd": "~/ui-app",
+  "tool_input": {
+    "command": "gh pr create --base dev --title 'feat: dashboard' --body 'Adds the dashboard'"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "guard-bash: design gate: a PASS scorecard exists but is not complete \u2014 dashboard/scorecard.md: dead-clicks: 1 control(s) without effect or with an error: NO_EFFECT \u00abExport\u00bb \u2014 every State matrix row needs a screenshot or an 'n/a reason'; every control needs an effect in dead-clicks/report.json (allowlist only with a reason) or the scorecard says 'Interaction: n/a \u2014 <reason>'; geometry/report.json (tools/ui-geometry.mjs) with 0 errors or 'Geometry: n/a \u2014 <reason>' (templates/project/design-scorecard.md \u00a7 State matrix, \u00a7 Interaction, \u00a7 Geometry)"}}
+--- deny/block text (decoded from stdout) ---
+guard-bash: design gate: a PASS scorecard exists but is not complete — dashboard/scorecard.md: dead-clicks: 1 control(s) without effect or with an error: NO_EFFECT «Export» — every State matrix row needs a screenshot or an 'n/a reason'; every control needs an effect in dead-clicks/report.json (allowlist only with a reason) or the scorecard says 'Interaction: n/a — <reason>'; geometry/report.json (tools/ui-geometry.mjs) with 0 errors or 'Geometry: n/a — <reason>' (templates/project/design-scorecard.md § State matrix, § Interaction, § Geometry)
+--- stderr ---
+
+--- exit code ---
+0

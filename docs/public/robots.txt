@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sanctusmorte.github.io/maxforge-claude/sitemap.xml

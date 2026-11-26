@@ -1,0 +1,2 @@
+controls 6; dead/error 2; skipped 1; report <repo>/evidence/ui/dead-clicks-fixture/report.md
+exit 1

@@ -1,0 +1,8 @@
+{
+  "name": "maxforge-claude",
+  "owner": { "name": "sanctusmorte", "url": "https://github.com/sanctusmorte" },
+  "description": "Quality-gate harness for Claude Code: hooks that block unverified \"done\", direct pushes and dead UI; skills, agents and rules for spec → build → evidence.",
+  "plugins": [
+    { "name": "maxforge-claude", "source": "./", "description": "Claude Code harness: gates, worktrees, UI QA, continuity, lessons." }
+  ]
+}

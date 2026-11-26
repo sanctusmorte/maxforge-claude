@@ -1,0 +1,10 @@
+{
+  "color": { "$type": "color", "ink": { "$value": "#111111" }, "paper": { "$value": "#ffffff" } },
+  "dimension": {
+    "$type": "dimension",
+    "space": { "1": { "$value": "8px" }, "2": { "$value": "16px" } },
+    "radius": { "md": { "$value": "6px" } },
+    "font-size": { "base": { "$value": "16px" }, "lg": { "$value": "24px" } },
+    "line-height": { "base": { "$value": "24px" } }
+  }
+}

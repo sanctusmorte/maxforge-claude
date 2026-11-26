@@ -1,0 +1,22 @@
+# owner correction phrase becomes a lesson candidate
+hook: hooks/lesson-capture.py
+event: UserPromptSubmit
+matcher: (none)
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+
+--- stdin (JSON) ---
+{
+  "hook_event_name": "UserPromptSubmit",
+  "session_id": "demo-session",
+  "cwd": "~/demo-app",
+  "prompt": "I told you again: don't push to main, open a PR."
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": "Possible owner correction: restate wrong/right; if it is a standing preference record it via the lesson skill (check-repeat first)."}}
+--- deny/block text (decoded from stdout) ---
+Possible owner correction: restate wrong/right; if it is a standing preference record it via the lesson skill (check-repeat first).
+--- stderr ---
+
+--- exit code ---
+0

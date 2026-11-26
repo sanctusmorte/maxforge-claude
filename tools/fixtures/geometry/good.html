@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geometry good</title>
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{font:16px/24px sans-serif;overflow-wrap:anywhere;padding:16px}
+  main{display:flex;flex-direction:column;gap:16px;max-width:960px}
+  h1{font-size:24px;line-height:32px}
+  .row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start}
+  input{width:200px;height:40px;padding:0 8px}
+  button{min-height:40px;padding:8px 16px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+  .card{border:1px solid #ccc;padding:16px;display:flex;flex-direction:column;gap:8px}
+  .trunc{width:200px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  nav{display:flex;flex-wrap:wrap;gap:16px}
+  nav a{display:block;min-height:40px;padding:8px}
+</style></head>
+<body><main>
+  <h1>Dashboard</h1>
+  <form class="row" onsubmit="return false"><input aria-label="Name" value="Anna"><button type="submit">Save</button><button type="button">Cancel</button></form>
+  <div class="cards">
+    <div class="card"><h2>Orders</h2><p>Open orders today</p></div>
+    <div class="card"><h2>Stock</h2><p>Items below the reorder level</p></div>
+    <div class="card"><h2>Returns</h2><p>Waiting</p></div>
+  </div>
+  <p class="trunc">A very long label that is truncated with an ellipsis on purpose</p>
+  <nav><a href="#a">Home</a><a href="#b">Orders</a><a href="#c">Stock</a></nav>
+</main></body></html>

@@ -1,0 +1,8 @@
+# public strings that are safe to ship
+https://github.com/sanctusmorte/maxforge-claude
+sanctusmorte/maxforge-claude
+https://github.com/sanctusmorte
+# placeholder address used in tests
+1.2.3.4
+# vendored github-markdown-css MIT copyright line (must stay verbatim)
+sindresorhus@gmail.com

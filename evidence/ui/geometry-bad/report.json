@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "generated_at": "2026-11-26T12:01:21.644Z",
+  "tool": "ui-geometry",
+  "urls": [
+    {
+      "url": "file://<repo>/tools/fixtures/geometry/bad.html",
+      "width": 390,
+      "stress": false,
+      "errors": [
+        {
+          "rule": "overlap",
+          "selector": "#overlap > button:nth-child(1)",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "w": 120,
+            "h": 40
+          },
+          "detail": "overlaps #overlap > button:nth-child(2) by 60x30px"
+        },
+        {
+          "rule": "page-overflow",
+          "selector": "#wide",
+          "rect": {
+            "x": 16,
+            "y": 168,
+            "w": 600,
+            "h": 24
+          },
+          "detail": "page scrolls horizontally: scrollWidth 616 > 390"
+        },
+        {
+          "rule": "clipped-text",
+          "selector": "#clip",
+          "rect": {
+            "x": 16,
+            "y": 208,
+            "w": 60,
+            "h": 24
+          },
+          "detail": "scroll 132x24 > box 60x24: \"This text is clipped\""
+        },
+        {
+          "rule": "outside-viewport",
+          "selector": "#offscreen",
+          "rect": {
+            "x": -80,
+            "y": 20,
+            "w": 60,
+            "h": 30
+          },
+          "detail": "x -80..-20 vs viewport 0..390"
+        }
+      ],
+      "warnings": [
+        {
+          "rule": "edge-misalign",
+          "selector": "#edge > div:nth-child(2)",
+          "rect": {
+            "x": 18,
+            "y": 272,
+            "w": 356,
+            "h": 24
+          },
+          "detail": "left edge 2.0px off sibling #edge > div:nth-child(1) in #edge"
+        },
+        {
+          "rule": "gap-off-scale",
+          "selector": "#gap > div:nth-child(2)",
+          "rect": {
+            "x": 16,
+            "y": 346,
+            "w": 358,
+            "h": 24
+          },
+          "detail": "gap 10.0px to previous sibling in #gap (4/8px scale)"
+        },
+        {
+          "rule": "unequal-heights",
+          "selector": "#heights > div:nth-child(1)",
+          "rect": {
+            "x": 16,
+            "y": 386,
+            "w": 100,
+            "h": 60
+          },
+          "detail": "2 siblings in #heights differ in height by 30px"
+        }
+      ],
+      "screenshot": "bad-390.png"
+    },
+    {
+      "url": "file://<repo>/tools/fixtures/geometry/bad.html",
+      "width": 1440,
+      "stress": false,
+      "errors": [
+        {
+          "rule": "overlap",
+          "selector": "#overlap > button:nth-child(1)",
+          "rect": {
+            "x": 16,
+            "y": 16,
+            "w": 120,
+            "h": 40
+          },
+          "detail": "overlaps #overlap > button:nth-child(2) by 60x30px"
+        },
+        {
+          "rule": "clipped-text",
+          "selector": "#clip",
+          "rect": {
+            "x": 16,
+            "y": 208,
+            "w": 60,
+            "h": 24
+          },
+          "detail": "scroll 132x24 > box 60x24: \"This text is clipped\""
+        },
+        {
+          "rule": "outside-viewport",
+          "selector": "#offscreen",
+          "rect": {
+            "x": -80,
+            "y": 20,
+            "w": 60,
+            "h": 30
+          },
+          "detail": "x -80..-20 vs viewport 0..1440"
+        }
+      ],
+      "warnings": [
+        {
+          "rule": "edge-misalign",
+          "selector": "#edge > div:nth-child(2)",
+          "rect": {
+            "x": 18,
+            "y": 272,
+            "w": 1406,
+            "h": 24
+          },
+          "detail": "left edge 2.0px off sibling #edge > div:nth-child(1) in #edge"
+        },
+        {
+          "rule": "gap-off-scale",
+          "selector": "#gap > div:nth-child(2)",
+          "rect": {
+            "x": 16,
+            "y": 346,
+            "w": 1408,
+            "h": 24
+          },
+          "detail": "gap 10.0px to previous sibling in #gap (4/8px scale)"
+        },
+        {
+          "rule": "unequal-heights",
+          "selector": "#heights > div:nth-child(1)",
+          "rect": {
+            "x": 16,
+            "y": 386,
+            "w": 100,
+            "h": 60
+          },
+          "detail": "2 siblings in #heights differ in height by 30px"
+        },
+        {
+          "rule": "first-screen",
+          "selector": "main:nth-child(1) > form:nth-child(10) > button:nth-child(2)",
+          "rect": {
+            "x": 201,
+            "y": 1510,
+            "w": 46,
+            "h": 21
+          },
+          "detail": "primary content ends at 1531px, viewport height 900px"
+        }
+      ],
+      "screenshot": "bad-1440.png"
+    }
+  ],
+  "summary": {
+    "errors": 7,
+    "warnings": 7
+  }
+}

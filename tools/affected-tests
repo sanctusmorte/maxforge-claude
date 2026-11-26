@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""affected-tests — the PHPUnit tests a change can break, as one --filter (so a local run stays short and scoped).
+
+Why (token audit 2026-10-09): a local run that ends within ~4.5 min costs ~nothing (no API calls while Bash runs,
+the cache is still warm); full suites block >5 min, re-write the whole context and flood it with output.
+Picks: changed test files + every test file under tests/ (e2e excluded) that names a changed PHP class
+(word match, one `git grep`). Changed = `<base>...HEAD` + uncommitted + untracked.
+
+Usage (repo root or worktree):
+  affected-tests                 → prints the filter regex, e.g. (OrderTotalsTest|OrderSyncPushTest)
+  affected-tests --cmd           → prints `php artisan test --filter='…'`
+  q $(affected-tests --cmd)      → run it quietly (~/.claude/tools/q)
+  --base <ref>                   default origin/dev, else origin/main, origin/master
+Exit: 0 = filter printed (or nothing to run: empty output + note on stderr), 3 = too broad (> --max files, rely on CI).
+"""
+import argparse
+import os
+import re
+import subprocess
+import sys
+
+
+def git(*args):
+    r = subprocess.run(["git", *args], capture_output=True, text=True)
+    return r.stdout.splitlines() if r.returncode == 0 else []
+
+
+def base_ref(wanted):
+    for ref in ([wanted] if wanted else ["origin/dev", "origin/main", "origin/master"]):
+        if git("rev-parse", "--verify", "-q", ref):
+            return ref
+    sys.exit(f"affected-tests: no base ref found ({wanted or 'origin/dev|main|master'})")
+
+
+def changed_files(base):
+    files = set(git("diff", "--name-only", f"{base}...HEAD")) | set(git("diff", "--name-only", "HEAD"))
+    files |= set(git("ls-files", "--others", "--exclude-standard"))
+    return sorted(f for f in files if os.path.exists(f))
+
+
+def is_test(path):
+    return path.startswith("tests/") and path.endswith("Test.php") and "/e2e/" not in path
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--base")
+    ap.add_argument("--cmd", action="store_true")
+    ap.add_argument("--max", type=int, default=60)
+    a = ap.parse_args()
+    changed = changed_files(base_ref(a.base))
+    tests = {f for f in changed if is_test(f)}
+    classes = sorted({os.path.basename(f)[:-4] for f in changed if f.endswith(".php") and not f.startswith("tests/")})
+    classes = [c for c in classes if re.fullmatch(r"[A-Z]\w+", c)]
+    for i in range(0, len(classes), 200):   # keep the regex under the arg limit
+        pattern = r"\b(" + "|".join(classes[i:i + 200]) + r")\b"
+        tests |= {f for f in git("grep", "-lE", pattern, "--", "tests") if is_test(f)}
+    if not tests:
+        print(f"affected-tests: no PHPUnit test names the {len(changed)} changed file(s); rely on CI", file=sys.stderr)
+        return 0
+    if len(tests) > a.max:
+        print(f"affected-tests: {len(tests)} test files affected (> {a.max}) — too broad for a local run, rely on CI",
+              file=sys.stderr)
+        return 3
+    names = sorted({os.path.basename(t)[:-4] for t in tests})
+    regex = "(" + "|".join(names) + ")"
+    print(f"php artisan test --filter='{regex}'" if a.cmd else regex)
+    print(f"affected-tests: {len(names)} test classes from {len(changed)} changed file(s)", file=sys.stderr)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

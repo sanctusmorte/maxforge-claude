@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="474" viewBox="0 0 700 474" role="img" aria-label="Terminal replay of four real hook outputs. git push origin main: &quot;guard-bash: direct push to protected branch 'main' — use a PR (core rule 1)&quot;. rm -rf ~: &quot;guard-bash: rm -rf on '~'&quot;. git commit with an AWS-style key staged: &quot;secret-scan: possible secrets in added lines: config.py: AWS access key&quot;. The agent says Done.: &quot;stop-guard: 3 REQ not verified in spec.md&quot;, finish or run verifier before declaring done.">
+<title>Terminal replay of four real hook outputs. git push origin main: "guard-bash: direct push to protected branch 'main' — use a PR (core rule 1)". rm -rf ~: "guard-bash: rm -rf on '~'". git commit with an AWS-style key staged: "secret-scan: possible secrets in added lines: config.py: AWS access key". The agent says Done.: "stop-guard: 3 REQ not verified in spec.md", finish or run verifier before declaring done.</title>
+<style>text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:24px;white-space:pre}.p{fill:#8C98AE}.c{fill:#F0F3F6}.d{fill:#FCA311}.b{font-weight:700}.cur{fill:#F0F3F6}.cov{fill:#14213D}text.bar{font-family:ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;font-size:24px;fill:#57606A}@keyframes sum{0%,18.333%{opacity:1}18.342%,100%{opacity:0}}.sum{animation:sum 12.0s linear infinite}@keyframes l1{0%,20.000%{opacity:0}20.008%,100%{opacity:1}}.l1{animation:l1 12.0s linear infinite}@keyframes k1{0%,19.992%{opacity:0;transform:translateX(0)}20.000%{opacity:1;transform:translateX(0);animation-timing-function:steps(20,end)}25.000%{opacity:1;transform:translateX(289.0px)}26.000%,100%{opacity:0;transform:translateX(289.0px)}}.k1{animation:k1 12.0s linear infinite}@keyframes l2{0%,27.500%{opacity:0}27.508%,100%{opacity:1}}.l2{animation:l2 12.0s linear infinite}@keyframes l3{0%,27.500%{opacity:0}27.508%,100%{opacity:1}}.l3{animation:l3 12.0s linear infinite}@keyframes l4{0%,33.333%{opacity:0}33.342%,100%{opacity:1}}.l4{animation:l4 12.0s linear infinite}@keyframes k4{0%,33.325%{opacity:0;transform:translateX(0)}33.333%{opacity:1;transform:translateX(0);animation-timing-function:steps(8,end)}35.333%{opacity:1;transform:translateX(115.6px)}36.333%,100%{opacity:0;transform:translateX(115.6px)}}.k4{animation:k4 12.0s linear infinite}@keyframes l5{0%,37.500%{opacity:0}37.508%,100%{opacity:1}}.l5{animation:l5 12.0s linear infinite}@keyframes l6{0%,43.333%{opacity:0}43.342%,100%{opacity:1}}.l6{animation:l6 12.0s linear infinite}@keyframes k6{0%,43.325%{opacity:0;transform:translateX(0)}43.333%{opacity:1;transform:translateX(0);animation-timing-function:steps(26,end)}49.833%{opacity:1;transform:translateX(375.6px)}50.833%,100%{opacity:0;transform:translateX(375.6px)}}.k6{animation:k6 12.0s linear infinite}@keyframes l7{0%,52.500%{opacity:0}52.508%,100%{opacity:1}}.l7{animation:l7 12.0s linear infinite}@keyframes l8{0%,52.500%{opacity:0}52.508%,100%{opacity:1}}.l8{animation:l8 12.0s linear infinite}@keyframes l9{0%,52.500%{opacity:0}52.508%,100%{opacity:1}}.l9{animation:l9 12.0s linear infinite}@keyframes l10{0%,71.667%{opacity:0}71.675%,100%{opacity:1}}.l10{animation:l10 12.0s linear infinite}@keyframes l11{0%,75.833%{opacity:0}75.842%,100%{opacity:1}}.l11{animation:l11 12.0s linear infinite}@keyframes l12{0%,75.833%{opacity:0}75.842%,100%{opacity:1}}.l12{animation:l12 12.0s linear infinite}@keyframes l13{0%,75.833%{opacity:0}75.842%,100%{opacity:1}}.l13{animation:l13 12.0s linear infinite}@keyframes l14{0%,75.833%{opacity:0}75.842%,100%{opacity:1}}.l14{animation:l14 12.0s linear infinite}@keyframes l15{0%,75.833%{opacity:0}75.842%,100%{opacity:1}}.l15{animation:l15 12.0s linear infinite}@keyframes scroll{0.000%{transform:translateY(-0.0px)}75.825%{transform:translateY(-0.0px)}77.000%{transform:translateY(-56.0px)}75.825%{transform:translateY(-56.0px)}77.000%{transform:translateY(-90.0px)}75.825%{transform:translateY(-90.0px)}77.000%{transform:translateY(-138.0px)}75.825%{transform:translateY(-138.0px)}77.000%{transform:translateY(-172.0px)}100%{transform:translateY(-172.0px)}}.scroll{animation:scroll 12.0s cubic-bezier(.2,.7,.3,1) infinite}@media (prefers-reduced-motion: reduce){.anim{display:none}*{animation:none!important}}</style>
+<defs><clipPath id="screen"><rect x="1" y="51" width="698" height="422"/></clipPath></defs>
+<rect x="0.5" y="0.5" width="699" height="473" rx="12" fill="#14213D" stroke="#D0D7DE"/>
+<path d="M1 50V13a11.5 11.5 0 0 1 11.5 -11.5H687.5a11.5 11.5 0 0 1 11.5 11.5V50Z" fill="#F6F8FA"/>
+<path d="M1 50.5H699" stroke="#D0D7DE"/>
+<text class="bar" x="22" y="33.5">replay of evidence/*.txt</text>
+<g clip-path="url(#screen)"><g transform="translate(0 50)">
+<g class="anim"><g class="scroll">
+<text x="22" y="45.0" class="l1"><tspan class="p">$ </tspan><tspan class="c">git push origin main</tspan></text>
+<g class="k1"><rect class="cur" x="50.9" y="26.0" width="14.4" height="26"/><rect class="cov" x="65.3" y="22.0" width="700" height="32"/></g>
+<text x="22" y="79.0" class="l2"><tspan class="d">guard-bash: direct push to protected branch</tspan></text>
+<text x="22" y="113.0" class="l3"><tspan class="d">'main' — use a PR (core rule 1)</tspan></text>
+<text x="22" y="161.0" class="l4"><tspan class="p">$ </tspan><tspan class="c">rm -rf ~</tspan></text>
+<g class="k4"><rect class="cur" x="50.9" y="142.0" width="14.4" height="26"/><rect class="cov" x="65.3" y="138.0" width="700" height="32"/></g>
+<text x="22" y="195.0" class="l5"><tspan class="d">guard-bash: rm -rf on '~'</tspan></text>
+<text x="22" y="243.0" class="l6"><tspan class="p">$ </tspan><tspan class="c">git commit -m 'add config'</tspan></text>
+<g class="k6"><rect class="cur" x="50.9" y="224.0" width="14.4" height="26"/><rect class="cov" x="65.3" y="220.0" width="700" height="32"/></g>
+<text x="22" y="277.0" class="l7"><tspan class="d">secret-scan: possible secrets in added lines:</tspan></text>
+<text x="22" y="311.0" class="l8"><tspan class="d">  config.py: AWS access key (AKIAIO…PLE)</tspan></text>
+<text x="22" y="345.0" class="l9"><tspan class="d">Move them to env/secret manager; …</tspan></text>
+<text x="22" y="393.0" class="l10"><tspan class="p">agent: </tspan><tspan class="c">Done.</tspan></text>
+<text x="22" y="427.0" class="l11"><tspan class="d">stop-guard: 3 REQ not verified in spec.md</tspan></text>
+<text x="22" y="461.0" class="l12"><tspan class="d">(REQ-1 export button downloads CSV,</tspan></text>
+<text x="22" y="495.0" class="l13"><tspan class="d">REQ-2 empty state shows a message,</tspan></text>
+<text x="22" y="529.0" class="l14"><tspan class="d">REQ-3 large file streams) — finish or run</tspan></text>
+<text x="22" y="563.0" class="l15"><tspan class="d">verifier before declaring done (shown once).</tspan></text>
+</g></g>
+<g class="sum">
+<text x="22" y="45.0"><tspan class="p">$ </tspan><tspan class="c">git push origin main</tspan></text>
+<text x="22" y="79.0"><tspan class="d">guard-bash: direct push to protected branch</tspan></text>
+<text x="22" y="113.0"><tspan class="d">'main' — use a PR (core rule 1)</tspan></text>
+<text x="22" y="161.0"><tspan class="p">$ </tspan><tspan class="c">rm -rf ~</tspan></text>
+<text x="22" y="195.0"><tspan class="d">guard-bash: rm -rf on '~'</tspan></text>
+<text x="22" y="243.0"><tspan class="p">$ </tspan><tspan class="c">git commit -m 'add config'</tspan></text>
+<text x="22" y="277.0"><tspan class="d">secret-scan: possible secrets in added lines:</tspan></text>
+<text x="22" y="311.0"><tspan class="d">  config.py: AWS access key (AKIAIO…PLE)</tspan></text>
+<text x="22" y="359.0"><tspan class="p">agent: </tspan><tspan class="c">Done.</tspan></text>
+<text x="22" y="393.0"><tspan class="d">stop-guard: 3 REQ not verified in spec.md …</tspan></text>
+</g>
+</g></g>
+</svg>

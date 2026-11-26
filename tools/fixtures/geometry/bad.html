@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geometry bad</title>
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{font:16px/24px sans-serif;padding:16px}
+  main{display:flex;flex-direction:column;gap:16px}
+  .ov{position:relative;height:60px}
+  .ov button{position:absolute;width:120px;height:40px}
+  .card{background:#eee;width:100px}
+</style></head>
+<body><main>
+  <div class="ov" id="overlap"><button style="left:0;top:0">A</button><button style="left:60px;top:10px">B</button></div>
+  <div class="ov" data-geometry-ignore id="ign-wrap"><button id="ign-a" style="left:0;top:0">A</button><button id="ign-b" style="left:60px;top:10px">B</button></div>
+  <div id="wide" style="width:600px;height:24px;background:#ccc">wide block</div>
+  <div class="clip" id="clip" style="width:60px;height:24px;overflow:hidden;white-space:nowrap">This text is clipped</div>
+  <a href="#" id="offscreen" style="position:absolute;left:-80px;top:20px;width:60px;height:30px;display:block">Off</a>
+  <div id="edge"><div style="height:24px;background:#eee">edge one</div><div style="height:24px;margin-left:2px;background:#ddd">edge two</div></div>
+  <div id="gap"><div style="height:24px;background:#eee">gap one</div><div style="height:24px;margin-top:10px;background:#ddd">gap two</div></div>
+  <div id="heights" style="display:flex;gap:16px;align-items:flex-start"><div class="card" style="height:60px">a</div><div class="card" style="height:90px">b</div></div>
+  <div style="height:1000px"></div>
+  <form onsubmit="return false"><input aria-label="Name"><button type="submit">Save</button></form>
+</main></body></html>

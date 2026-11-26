@@ -1,0 +1,2 @@
+# Internal planning and design notes stay in the private development repo; `git archive` (public cut) skips them.
+docs/project/ export-ignore

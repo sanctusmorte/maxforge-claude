@@ -1,0 +1,32 @@
+maxforge-claude
+Copyright (c) 2026 sanctusmorte, MIT License (see LICENSE).
+
+== Vendored third-party content ==
+
+skills/laravel-best-practices/ - Laravel best practices skill by Laravel (https://github.com/laravel),
+  license: MIT (declared in the skill front matter, `license: MIT`, author: laravel). Copyright (c) Laravel.
+  Redistributed unmodified apart from export scrubbing; the MIT permission notice applies to that copy.
+
+tools/web-guidelines/ - web-guidelines rules: derived from vercel-labs/web-interface-guidelines (commit 434b7f91364665f2f733b310ec54809bf8f37937), Copyright (c) 2025 Vercel Labs, MIT License; license text in tools/web-guidelines/LICENSE.
+
+== Recommended add-ons (NOT vendored, NOT installed by this plugin) ==
+
+These skills are used by the author's setup. Install them from upstream under their own licenses:
+
+- competitor-profiling: https://github.com/coreyhaines31/marketingskills (MIT)
+- content-strategy: https://github.com/coreyhaines31/marketingskills (MIT)
+- context-compression: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering (MIT)
+- context-fundamentals: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering (MIT)
+- context-optimization: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering (MIT)
+- copywriting: https://github.com/coreyhaines31/marketingskills (MIT)
+- council-review: https://github.com/ngmeyer/council-review (MIT)
+- cro: https://github.com/coreyhaines31/marketingskills (MIT)
+- customer-research: https://github.com/coreyhaines31/marketingskills (MIT)
+- emil-design-eng: https://github.com/emilkowalski/skill (none (no LICENSE file))  [no license upstream: do not redistribute, link only]
+- harness-engineering: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering (MIT)
+- marketing-psychology: https://github.com/coreyhaines31/marketingskills (MIT)
+- multi-agent-patterns: https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering (MIT)
+- product-marketing: https://github.com/coreyhaines31/marketingskills (MIT)
+- redesign-skill: https://github.com/leonxlnx/taste-skill (MIT)
+- stop-slop: https://github.com/hardikpandya/stop-slop (MIT)
+- taste-skill: https://github.com/leonxlnx/taste-skill (MIT)

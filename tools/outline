@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""outline — a file's map (symbols / headings with line numbers) so an agent Reads only the slice it needs.
+
+Why (token audit 2026-10-09): 64 % of Read text was whole-file reads; a map is ~2–5 % of the file. No ctags on the
+box, so regexes per language: PHP, JS/TS/MJS/TSX, Vue (sections + script symbols), Python, Markdown headings, CSS
+top-level selectors; anything else → every non-indented line that opens a block.
+
+Usage:
+  outline <file>               → "L<line> <signature>" per symbol + total lines
+  outline <file> --sym <name>  → the body of that symbol (definition line → before the next symbol at the same or
+                                  lower indent), with line numbers — then Edit without a whole-file Read
+"""
+import os
+import re
+import sys
+
+PATTERNS = {
+    "php": r"^\s*((abstract|final|readonly)\s+)*(class|interface|trait|enum)\s+\w+|^\s*((public|protected|private|static|abstract|final)\s+)*function\s+\w+",
+    "js": r"^\s*(export\s+)?(default\s+)?(async\s+)?(function\*?\s+\w+|class\s+\w+)|^\s*(export\s+)?(const|let)\s+\w+\s*=\s*(async\s*)?(\([^)]*\)|\w+)\s*=>|^\s*(export\s+)?(interface|type|enum)\s+\w+|^\s{2,4}(async\s+|static\s+|get\s+|set\s+)*(?!if\b|for\b|while\b|switch\b|catch\b|return\b)\w+\s*\([^)]*\)\s*\{\s*$|^\s*(describe|it|test)\(",
+    "py": r"^\s*(async\s+)?def\s+\w+|^\s*class\s+\w+",
+    "md": r"^#{1,6}\s",
+    "css": r"^[^\s@}][^{]*\{\s*$|^@(media|supports|layer|keyframes)",
+    "vue": r"^<(template|script|style)\b",
+}
+EXT = {".php": "php", ".js": "js", ".mjs": "js", ".cjs": "js", ".ts": "js", ".tsx": "js", ".jsx": "js",
+       ".py": "py", ".md": "md", ".css": "css", ".scss": "css", ".vue": "vue"}
+
+
+def symbols(path, lines):
+    lang = EXT.get(os.path.splitext(path)[1].lower())
+    pats = [PATTERNS[lang]] if lang else [r"^\S.*[{:]\s*$"]
+    if lang == "vue":
+        pats.append(PATTERNS["js"])
+    rx = re.compile("|".join(f"(?:{p})" for p in pats))
+    return [(i, ln) for i, ln in enumerate(lines, 1) if rx.search(ln)]
+
+
+def indent(s):
+    return len(s) - len(s.lstrip())
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit(__doc__)
+    path = sys.argv[1]
+    lines = open(path, encoding="utf-8", errors="replace").read().splitlines()
+    syms = symbols(path, lines)
+    if "--sym" in sys.argv:
+        name = sys.argv[sys.argv.index("--sym") + 1]
+        hits = [k for k, (i, ln) in enumerate(syms) if re.search(rf"\b{re.escape(name)}\b", ln)]
+        if not hits:
+            sys.exit(f"outline: no symbol '{name}' in {path}")
+        k = hits[0]
+        start, ind = syms[k][0], indent(syms[k][1])
+        end = next((i - 1 for i, ln in syms[k + 1:] if indent(ln) <= ind), len(lines))
+        for n in range(start, end + 1):
+            print(f"{n:>6}\t{lines[n - 1]}")
+        return
+    print(f"{path}: {len(lines)} lines, {len(syms)} symbols")
+    for i, ln in syms:
+        print(f"L{i} {ln.strip()[:120]}")
+
+
+if __name__ == "__main__":
+    main()

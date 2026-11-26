@@ -1,0 +1,380 @@
+#!/usr/bin/env python3
+"""maxforge: installer, doctor and uninstaller for the maxforge-claude plugin.
+
+Usage: maxforge setup [--rules] [--settings] [--node] [--dry-run] | doctor | uninstall | version
+
+Python 3.10+ stdlib only. Linux/macOS are supported; Windows is best-effort
+(untested: paths use pathlib, $HOME falls back to the user profile).
+
+Plugin facts this file relies on (verified 2026-11 against the docs):
+- Plugin `bin/` is on the Bash tool's PATH while the plugin is enabled, but
+  CLAUDE_PLUGIN_ROOT / CLAUDE_PLUGIN_DATA are NOT in the Bash tool environment
+  (https://code.claude.com/docs/en/plugins-reference#environment-variables).
+  So this script falls back to its own location for the root, and the setup
+  skill passes CLAUDE_PLUGIN_DATA explicitly.
+- ~/.claude/rules/ is scanned recursively for *.md, hence the maxforge/ subdir
+  (https://code.claude.com/docs/en/memory#organize-rules-with-claude/rules/).
+"""
+from __future__ import annotations
+
+import argparse
+import difflib
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+MIN_PYTHON = (3, 10)
+VERSION_FILE = ".maxforge-version"
+UNINSTALL_LINE = "/plugin uninstall maxforge-claude@maxforge-claude"
+NODE_PACKAGES = ("playwright", "@axe-core/playwright")
+# Never merged into user settings, whatever recommended.json says.
+FORBIDDEN_TOP_KEYS = {"model"}
+FORBIDDEN_MODE = "bypassPermissions"
+
+
+class MaxforgeError(Exception):
+    """Expected, user-facing failure (printed without traceback)."""
+
+
+def plugin_root() -> Path:
+    env = os.environ.get("CLAUDE_PLUGIN_ROOT")
+    return Path(env) if env else Path(__file__).resolve().parent.parent
+
+
+def home() -> Path:
+    return Path(os.environ.get("HOME") or Path.home())
+
+
+def claude_dir() -> Path:
+    return home() / ".claude"
+
+
+def rules_dir() -> Path:
+    return claude_dir() / "rules" / "maxforge"
+
+
+def data_dir() -> Path:
+    env = os.environ.get("CLAUDE_PLUGIN_DATA")
+    return Path(env) if env else claude_dir() / "state" / "maxforge"
+
+
+def plugin_version(root: Path) -> str:
+    manifest = root / ".claude-plugin" / "plugin.json"
+    try:
+        return str(json.loads(manifest.read_text(encoding="utf-8"))["version"])
+    except (OSError, ValueError, KeyError) as exc:
+        raise MaxforgeError(f"cannot read version from {manifest}: {exc}") from exc
+
+
+def installed_version() -> str | None:
+    try:
+        return (rules_dir() / VERSION_FILE).read_text(encoding="utf-8").strip()
+    except OSError:
+        return None
+
+
+def rule_sources(root: Path) -> list[Path]:
+    found = sorted((root / "rules").glob("*.md")) + sorted((root / "extras" / "rules").glob("*.md"))
+    by_name: dict[str, Path] = {}
+    for path in found:  # extras/rules wins on a name clash (it is listed last)
+        by_name[path.name] = path
+    return sorted(by_name.values(), key=lambda p: p.name)
+
+
+def backup_path(label: str) -> Path:
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    base = claude_dir() / "backups" / f"{label}-{stamp}"
+    candidate, n = base, 1
+    while candidate.exists():
+        n += 1
+        candidate = base.with_name(f"{base.name}-{n}")
+    return candidate
+
+
+def backup(src: Path, label: str, dry_run: bool) -> Path:
+    dest = backup_path(label)
+    print(f"  backup {src} -> {dest}")
+    if not dry_run:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        if src.is_dir():
+            shutil.copytree(src, dest)
+        else:
+            shutil.copy2(src, dest)
+    return dest
+
+
+def rules_up_to_date(sources: list[Path], version: str) -> bool:
+    target = rules_dir()
+    if installed_version() != version:
+        return False
+    present = {p.name for p in target.glob("*.md")}
+    if present != {p.name for p in sources}:
+        return False
+    return all((target / p.name).read_bytes() == p.read_bytes() for p in sources)
+
+
+def setup_rules(root: Path, dry_run: bool) -> None:
+    sources = rule_sources(root)
+    if not sources:
+        raise MaxforgeError(f"no rules found in {root}/rules or {root}/extras/rules")
+    version = plugin_version(root)
+    target = rules_dir()
+    print(f"rules: {len(sources)} files -> {target} (version {version})")
+    if target.exists() and rules_up_to_date(sources, version):
+        print("  already up to date, nothing to do")
+        return
+    if target.exists():
+        backup(target, "maxforge", dry_run)
+    for src in sources:
+        print(f"  copy {src.name}")
+    print(f"  write {VERSION_FILE}")
+    if dry_run:
+        return
+    if target.exists():
+        shutil.rmtree(target)
+    target.mkdir(parents=True)
+    for src in sources:
+        shutil.copy2(src, target / src.name)
+    (target / VERSION_FILE).write_text(version + "\n", encoding="utf-8")
+
+
+def merge_missing(user: dict, rec: dict, path: str = "") -> list[str]:
+    """Add keys of `rec` absent from `user` in place; return the added key paths.
+
+    Dicts recurse, lists of strings gain missing entries (never lose any),
+    any other existing user value is left untouched.
+    """
+    added: list[str] = []
+    for key, value in rec.items():
+        here = f"{path}.{key}" if path else key
+        if key not in user:
+            user[key] = value
+            added.append(here)
+        elif isinstance(value, dict) and isinstance(user[key], dict):
+            added += merge_missing(user[key], value, here)
+        elif isinstance(value, list) and isinstance(user[key], list):
+            extra = [v for v in value if v not in user[key]]
+            if extra:
+                user[key] = user[key] + extra
+                added.append(f"{here} (+{len(extra)})")
+    return added
+
+
+def check_recommended(rec: dict) -> None:
+    bad = FORBIDDEN_TOP_KEYS & rec.keys()
+    if bad or FORBIDDEN_MODE in json.dumps(rec):
+        raise MaxforgeError(f"recommended.json must not set {sorted(bad) or FORBIDDEN_MODE}")
+
+
+def load_json(path: Path) -> dict:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except OSError:
+        return {}
+    except ValueError as exc:
+        raise MaxforgeError(f"{path} is not valid JSON ({exc}); fix it first, nothing was changed") from exc
+    if not isinstance(data, dict):
+        raise MaxforgeError(f"{path} must contain a JSON object")
+    return data
+
+
+def dump_json(data: dict) -> str:
+    return json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+
+
+def setup_settings(root: Path, dry_run: bool) -> None:
+    rec = load_json(root / "settings" / "recommended.json")
+    check_recommended(rec)
+    target = claude_dir() / "settings.json"
+    user = load_json(target)
+    before = dump_json(user)
+    added = merge_missing(user, rec)
+    print(f"settings: {target}")
+    if not added:
+        print("  nothing to add, all recommended keys already present")
+        return
+    diff = difflib.unified_diff(before.splitlines(), dump_json(user).splitlines(), "settings.json (current)", "settings.json (merged)", lineterm="")
+    print("\n".join("  " + line for line in diff))
+    print(f"  add: {', '.join(added)}")
+    if dry_run:
+        return
+    if target.exists():
+        backup(target, "settings", False)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(dump_json(user), encoding="utf-8")
+
+
+def run(cmd: list[str], cwd: Path) -> None:
+    print("  $ " + " ".join(cmd))
+    subprocess.run(cmd, cwd=cwd, check=True)
+
+
+def setup_node(dry_run: bool) -> None:
+    data = data_dir()
+    print(f"node: Playwright + axe-core -> {data}")
+    npm = ["npm", "install", "--prefix", str(data), *NODE_PACKAGES]
+    browser = ["npx", "playwright", "install", "chromium"]
+    if dry_run:
+        print("  $ " + " ".join(npm))
+        print(f"  $ (cd {data}) " + " ".join(browser))
+        return
+    if not (shutil.which("npm") and shutil.which("npx")):
+        raise MaxforgeError("npm/npx not found; install Node.js 18+ first")
+    data.mkdir(parents=True, exist_ok=True)
+    try:
+        run(npm, data)
+        run(browser, data)
+    except subprocess.CalledProcessError as exc:
+        raise MaxforgeError(f"node setup failed: {exc}") from exc
+
+
+def cmd_setup(args: argparse.Namespace) -> int:
+    root = plugin_root()
+    do_rules = args.rules or not (args.settings or args.node)
+    if args.dry_run:
+        print("DRY RUN: nothing will be written")
+    if do_rules:
+        setup_rules(root, args.dry_run)
+    if args.settings:
+        setup_settings(root, args.dry_run)
+    if args.node:
+        setup_node(args.dry_run)
+    print("done" if not args.dry_run else "dry run complete")
+    return 0
+
+
+def cmd_uninstall(_: argparse.Namespace) -> int:
+    target = rules_dir()
+    if target.exists():
+        backup(target, "maxforge-uninstall", False)
+        shutil.rmtree(target)
+        print(f"removed {target}")
+    else:
+        print(f"nothing to remove ({target} not found)")
+    print("To remove the plugin itself, run inside Claude Code:")
+    print(f"  {UNINSTALL_LINE}")
+    return 0
+
+
+def plugin_hook_files(root: Path) -> set[str]:
+    try:
+        text = (root / "hooks" / "hooks.json").read_text(encoding="utf-8")
+    except OSError:
+        return set()
+    return set(re.findall(r"hooks/([\w.-]+\.(?:py|sh|mjs))", text))
+
+
+def duplicate_hooks(root: Path) -> list[str]:
+    try:
+        user_hooks = load_json(claude_dir() / "settings.json").get("hooks", {})
+    except MaxforgeError:
+        return []
+    text = json.dumps(user_hooks)
+    return sorted(f for f in plugin_hook_files(root) if re.search(r"hooks/" + re.escape(f), text))
+
+
+def writable(path: Path) -> bool:
+    try:
+        path.mkdir(parents=True, exist_ok=True)
+        probe = path / ".maxforge-probe"
+        probe.write_text("x", encoding="utf-8")
+        probe.unlink()
+        return True
+    except OSError:
+        return False
+
+
+def tool_version(name: str, flag: str = "--version") -> str | None:
+    exe = shutil.which(name)
+    if not exe:
+        return None
+    try:
+        out = subprocess.run([exe, flag], capture_output=True, text=True, timeout=10).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return "found"
+    return out.splitlines()[0] if out else "found"
+
+
+def doctor_checks(root: Path) -> list[tuple[str, str, str]]:
+    """Return (status, name, detail); status is OK, WARN or FAIL (FAIL = required)."""
+    rows: list[tuple[str, str, str]] = []
+    py_ok = sys.version_info >= MIN_PYTHON
+    rows.append(("OK" if py_ok else "FAIL", "python >= 3.10", sys.version.split()[0]))
+    git = tool_version("git")
+    rows.append(("OK" if git else "FAIL", "git (required)", git or "not found"))
+    for tool in ("gh", "node", "npm"):
+        found = tool_version(tool)
+        rows.append(("OK" if found else "WARN", f"{tool} (optional)", found or "not found"))
+    data = data_dir()
+    pw = (data / "node_modules" / "playwright").is_dir()
+    rows.append(("OK" if pw else "WARN", "Playwright in data dir", str(data) if pw else "missing: run setup --node"))
+    rows.append(rules_row(root))
+    unset = "CLAUDE_PLUGIN_DATA" not in os.environ
+    ok = writable(data)
+    detail = f"{data}" + (" (env unset, using fallback)" if unset else "")
+    rows.append(("OK" if ok else "FAIL", "data dir writable", detail if ok else f"not writable: {data}"))
+    dups = duplicate_hooks(root)
+    rows.append(("WARN" if dups else "OK", "no duplicate hook wiring", "also wired in your settings.json: " + ", ".join(dups) if dups else "none"))
+    return rows
+
+
+def rules_row(root: Path) -> tuple[str, str, str]:
+    installed = installed_version()
+    try:
+        want = plugin_version(root)
+    except MaxforgeError as exc:
+        return ("WARN", "rules installed", str(exc))
+    if installed is None:
+        return ("WARN", "rules installed", "missing: run /maxforge-claude:setup")
+    if installed != want:
+        return ("WARN", "rules installed", f"outdated ({installed} != {want}): run /maxforge-claude:setup")
+    return ("OK", "rules installed", f"version {installed}")
+
+
+def cmd_doctor(_: argparse.Namespace) -> int:
+    root = plugin_root()
+    rows = doctor_checks(root)
+    width = max(len(name) for _, name, _ in rows)
+    print(f"maxforge doctor (root: {root})")
+    for status, name, detail in rows:
+        print(f"{status:<5} {name:<{width}}  {detail}")
+    failed = [name for status, name, _ in rows if status == "FAIL"]
+    print("RESULT: " + ("FAIL (" + ", ".join(failed) + ")" if failed else "ok"))
+    return 1 if failed else 0
+
+
+def cmd_version(_: argparse.Namespace) -> int:
+    print(plugin_version(plugin_root()))
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="maxforge", description="maxforge-claude installer and doctor")
+    sub = parser.add_subparsers(dest="command", required=True)
+    setup = sub.add_parser("setup", help="install rules (default), merge settings, install node deps")
+    setup.add_argument("--rules", action="store_true", help="copy rules to ~/.claude/rules/maxforge/ (default)")
+    setup.add_argument("--settings", action="store_true", help="merge settings/recommended.json into ~/.claude/settings.json")
+    setup.add_argument("--node", action="store_true", help="install Playwright + axe-core into $CLAUDE_PLUGIN_DATA")
+    setup.add_argument("--dry-run", action="store_true", help="print actions, write nothing")
+    setup.set_defaults(func=cmd_setup)
+    for name, func, text in (("doctor", cmd_doctor, "check the environment"), ("uninstall", cmd_uninstall, "remove installed rules"), ("version", cmd_version, "print plugin version")):
+        sub.add_parser(name, help=text).set_defaults(func=func)
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    try:
+        return args.func(args)
+    except MaxforgeError as exc:
+        print(f"maxforge: {exc}", file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main())

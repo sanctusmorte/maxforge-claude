@@ -1,0 +1,25 @@
+# cat of a 3000-line file
+hook: hooks/dump-nudge.py
+event: PreToolUse
+matcher: Bash
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+
+--- stdin (JSON) ---
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Bash",
+  "session_id": "demo-session",
+  "cwd": "~/demo-app",
+  "tool_input": {
+    "command": "cat big.txt"
+  }
+}
+--- stdout ---
+{"hookSpecificOutput": {"hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": "dump-nudge: big.txt has >150 lines \u2014 a shell dump of it stays in context and skips the stack rules a Read loads. Next: Read big.txt with offset=1 limit=150"}}
+--- deny/block text (decoded from stdout) ---
+dump-nudge: big.txt has >150 lines — a shell dump of it stays in context and skips the stack rules a Read loads. Next: Read big.txt with offset=1 limit=150
+--- stderr ---
+
+--- exit code ---
+0

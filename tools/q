@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# q — quiet run: full output to a log file, only the verdict + failure lines + a short tail into the agent's context.
+# Why (token audit 2026-10-09): every line of test/build output stays in context and is re-sent on every later call.
+# Usage: ~/.claude/tools/q <command…>        e.g.  q php artisan test --filter=OrderSync   ·   q npm run build
+# Env: Q_TAIL (default 15) lines of tail, Q_FAIL (default 40) max failure lines. Exit code = the command's.
+set -u
+[ $# -eq 0 ] && { echo "usage: q <command…>" >&2; exit 2; }
+dir=${Q_DIR:-$HOME/.claude/tmp/q}; mkdir -p "$dir"
+log="$dir/$(date +%Y%m%d-%H%M%S)-$$.log"
+t0=$SECONDS; "$@" >"$log" 2>&1; rc=$?; secs=$((SECONDS - t0))
+lines=$(wc -l <"$log")
+echo "q: exit $rc · ${secs}s · $lines lines · full log $log"
+[ $secs -gt 240 ] && echo "q: run took ${secs}s > 240 s — the prompt cache (5 min) may have expired; narrow it (affected-tests) or leave it to CI"
+fails=$(grep -nE '(FAIL|FAILED|Failed|failed|ERROR|Error:|Exception|✘|✗|×|Fatal|Tests: .*fail|[0-9]+ (failed|errors?)\b)' "$log" | grep -vE '\b0 (failed|errors?)\b' | head -n "${Q_FAIL:-40}")
+[ -n "$fails" ] && { echo "--- failure lines (first ${Q_FAIL:-40}, line:text)"; printf '%s\n' "$fails" | sed -E "s/\x1b\[[0-9;]*m//g" | cut -c1-300; }
+echo "--- tail"
+tail -n "${Q_TAIL:-$([ $rc -eq 0 ] && echo 5 || echo 15)}" "$log" | sed -E "s/\x1b\[[0-9;]*m//g" | cut -c1-300
+exit $rc

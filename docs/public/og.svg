@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="maxforge-claude: Claude Code plugin with hooks, subagents and quality gates">
+  <rect width="1200" height="630" fill="#1b1b1f"/>
+  <rect x="0" y="0" width="16" height="630" fill="#d97757"/>
+  <text x="80" y="210" font-family="DejaVu Sans, Arial, sans-serif" font-size="84" font-weight="700" fill="#ffffff">maxforge-claude</text>
+  <text x="80" y="290" font-family="DejaVu Sans, Arial, sans-serif" font-size="40" fill="#e8d5cc">Claude Code plugin: hooks, subagents,</text>
+  <text x="80" y="344" font-family="DejaVu Sans, Arial, sans-serif" font-size="40" fill="#e8d5cc">quality gates</text>
+  <g font-family="DejaVu Sans Mono, Courier New, monospace" font-size="30" fill="#f2f2f2">
+    <text x="80" y="450">No push to main. No secrets in commits.</text>
+    <text x="80" y="500">No "done" without evidence.</text>
+  </g>
+  <text x="80" y="570" font-family="DejaVu Sans Mono, Courier New, monospace" font-size="28" fill="#d97757">github.com/sanctusmorte/maxforge-claude</text>
+</svg>

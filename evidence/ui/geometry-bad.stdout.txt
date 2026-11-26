@@ -1,0 +1,2 @@
+ui-geometry: 7 error(s), 7 warning(s) → <repo>/evidence/ui/geometry-bad/report.json
+exit 1

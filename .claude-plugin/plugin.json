@@ -1,0 +1,11 @@
+{
+  "name": "maxforge-claude",
+  "version": "0.1.0",
+  "description": "A battle-tested Claude Code harness: worktree-per-task with PRs, quality gates that block bad merges, UI QA that clicks every button, continuity that survives compaction, and lessons that turn corrections into checks.",
+  "author": { "name": "sanctusmorte", "url": "https://github.com/sanctusmorte" },
+  "homepage": "https://github.com/sanctusmorte/maxforge-claude",
+  "repository": "https://github.com/sanctusmorte/maxforge-claude",
+  "license": "MIT",
+  "icon": "./.claude-plugin/icon.png",
+  "keywords": ["claude-code", "claude-code-plugin", "harness", "hooks", "skills", "subagents", "quality-gates", "ui-qa", "worktree", "context-engineering"]
+}

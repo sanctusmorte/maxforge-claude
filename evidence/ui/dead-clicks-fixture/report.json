@@ -1,0 +1,58 @@
+[
+  {
+    "text": "Go to page two",
+    "selector": "#go",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "a",
+    "verdict": "NAVIGATED",
+    "evidence": "file://<repo>/tools/fixtures/dead-clicks/index.html -> file://<repo>/tools/fixtures/dead-clicks/page2.html"
+  },
+  {
+    "text": "Toggle",
+    "selector": "#toggle",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "button",
+    "verdict": "STATE_CHANGED",
+    "evidence": "aria/checked changed"
+  },
+  {
+    "text": "Open dialog",
+    "selector": "#open",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "button",
+    "verdict": "OVERLAY",
+    "evidence": "overlays 0 -> 1"
+  },
+  {
+    "text": "Dead button",
+    "selector": "#dead",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "button",
+    "verdict": "NO_EFFECT",
+    "evidence": "no url/request/overlay/aria/DOM change",
+    "screenshot": "<repo>/evidence/ui/dead-clicks-fixture/shots/09ea88-1440x900-3.png"
+  },
+  {
+    "text": "Throwing button",
+    "selector": "#boom",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "button",
+    "verdict": "ERROR",
+    "evidence": "pageerror: boom",
+    "screenshot": "<repo>/evidence/ui/dead-clicks-fixture/shots/09ea88-1440x900-4.png"
+  },
+  {
+    "text": "Удалить всё",
+    "selector": "#del",
+    "page": "file://<repo>/tools/fixtures/dead-clicks/index.html",
+    "viewport": "1440x900",
+    "tag": "button",
+    "verdict": "SKIPPED",
+    "evidence": "destructive by text/aria"
+  }
+]

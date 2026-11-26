@@ -1,0 +1,24 @@
+# agent tries to stop while spec requirements are not verified
+hook: hooks/stop-guard.py
+event: Stop
+matcher: (none - fires on every Stop)
+captured: 2026-11-26, from this tree, throwaway HOME / CLAUDE_PLUGIN_DATA
+redaction: local absolute paths replaced by `~` (fixture home) and `<repo>` (this checkout); nothing else edited
+note: fixture: linked worktree whose spec has a Requirements status table with 1 green, 1 todo, 1 red row; shown once per session
+--- stdin (JSON) ---
+{
+  "hook_event_name": "Stop",
+  "session_id": "demo-session-0001",
+  "cwd": "~/wt-task",
+  "stop_hook_active": false,
+  "transcript_path": "",
+  "last_assistant_message": "Done."
+}
+--- stdout ---
+{"decision": "block", "reason": "stop-guard: 3 REQ not verified in spec.md (REQ-1 export button downloads CSV, REQ-2 empty state shows a message, REQ-3 large file streams) \u2014 finish or run verifier before declaring done (shown once)."}
+--- deny/block text (decoded from stdout) ---
+stop-guard: 3 REQ not verified in spec.md (REQ-1 export button downloads CSV, REQ-2 empty state shows a message, REQ-3 large file streams) — finish or run verifier before declaring done (shown once).
+--- stderr ---
+
+--- exit code ---
+0

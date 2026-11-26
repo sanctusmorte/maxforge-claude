@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -v
+      - name: JSON validity
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys
+          bad = 0
+          for p in pathlib.Path('.').rglob('*.json'):
+              if any(part in ('node_modules', '.git', '.tmp') for part in p.parts):
+                  continue
+              try:
+                  json.loads(p.read_text(encoding='utf-8'))
+              except ValueError as e:
+                  print(f'INVALID {p}: {e}')
+                  bad += 1
+          sys.exit(1 if bad else 0)
+          PY
+      - name: Leak check (generic patterns only)
+        run: |
+          if [ -f scripts/leak-check.py ]; then
+            python3 scripts/leak-check.py --generic-only .
+          else
+            echo "scripts/leak-check.py not present yet, skipping"
+          fi
+
+  plugin-validate:
+    runs-on: ubuntu-latest
+    # Non-blocking: assumed to need no auth (offline manifest check), but the CLI
+    # download or any auth prompt must not fail the PR. Remove continue-on-error
+    # once a green run proves it works unauthenticated.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: claude plugin validate --strict
+        run: npx -y @anthropic-ai/claude-code plugin validate --strict .
